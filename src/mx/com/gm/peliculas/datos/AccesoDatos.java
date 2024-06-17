@@ -17,7 +17,7 @@ public interface AccesoDatos {
     
     /**
      * Devuelve una lista de objetos pelicula, la implementacion debe asegurarse
-     * de que el archivo existe y contine datos para listar.
+     * de que el archivo existe y contiene datos para listar.
      */
     public List<Pelicula> listar(String nombreArchivo);
     
@@ -31,7 +31,7 @@ public interface AccesoDatos {
     /**
      * Recibe el nombre del archivo en donde se encuentra la pelicula, y tambien
      * recibira el nombre de la pelicula.
-     * Devolvera el nombre del archivo en tipo de dato cadena.
+     * Devolvera el nombre de la pelicula en tipo de dato cadena.
      */
     public String buscar(String nombreArchivo, String nombrePelicula);
     

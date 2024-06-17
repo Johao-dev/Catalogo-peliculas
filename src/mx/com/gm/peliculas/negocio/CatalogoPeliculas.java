@@ -17,7 +17,7 @@ public interface CatalogoPeliculas {
      * parametro.
      */
     public void listarPeliculas(String nombreArchivo);
-    
+
     /**
      * Buscara el nombre de la pelicula en el archivo correspondiente.
      */
