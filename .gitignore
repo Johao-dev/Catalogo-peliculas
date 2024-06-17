@@ -1,0 +1,8 @@
+#directorios y archivos a ocultar
+
+manifest.ml
+build/
+nbproject/
+build.xml
+
+
