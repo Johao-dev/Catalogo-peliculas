@@ -13,6 +13,8 @@ import java.util.List;
 import mx.com.gm.peliculas.domain.Pelicula;
 
 public class AccesoDatosImpl implements AccesoDatos {
+    
+    public AccesoDatosImpl() {}
 
     @Override
     public boolean existe(String nombreArchivo) {
@@ -47,6 +49,8 @@ public class AccesoDatosImpl implements AccesoDatos {
             } catch (IOException ex) {
                 ex.printStackTrace(System.out);
             }
+        } else {
+            System.out.println("El archivo no existe.");
         }
         return peliculas;
     }
@@ -62,6 +66,7 @@ public class AccesoDatosImpl implements AccesoDatos {
                 try (BufferedWriter br = Files.newBufferedWriter(archivo,
                         Charset.defaultCharset(), StandardOpenOption.WRITE)){
                     br.write(pelicula.getNombre());
+                    System.out.println("Pelicula agregada exitosamente.");
                     br.newLine();
                     
                 } catch (IOException ex) {
@@ -71,12 +76,15 @@ public class AccesoDatosImpl implements AccesoDatos {
                 try (BufferedWriter br = Files.newBufferedWriter(archivo,
                         Charset.defaultCharset(), StandardOpenOption.APPEND)){
                     br.write(pelicula.getNombre());
+                    System.out.println("Pelicula anexada exitosamente.");
                     br.newLine();
                     
                 } catch (IOException ex) {
                     ex.printStackTrace(System.out);
                 }
             }
+        } else {
+            System.out.println("El archivo no existe.");
         }
     }
 
@@ -94,8 +102,10 @@ public class AccesoDatosImpl implements AccesoDatos {
                 String pelicula = br.readLine();
                 
                 while (pelicula != null) {
-                    if (pelicula.equals(nombrePelicula))
-                        peliculaBuscada = pelicula;
+                    if (!pelicula.equals(nombrePelicula))
+                        peliculaBuscada = "No se encontro la pelicula " + nombrePelicula;
+                    else if (pelicula.equals(nombrePelicula))
+                        peliculaBuscada = "Se encontro la pelicula " + nombrePelicula;
                     
                     pelicula = br.readLine();
                 }
@@ -103,8 +113,10 @@ public class AccesoDatosImpl implements AccesoDatos {
             } catch (IOException ex) {
                 ex.printStackTrace(System.out);
             }
+        } else {
+            System.out.println("El archivo no existe.");
         }
-        return "Se encontro la pelicula: " + peliculaBuscada;
+        return peliculaBuscada;
     }
 
     @Override
@@ -117,10 +129,10 @@ public class AccesoDatosImpl implements AccesoDatos {
             Path archivo = Paths.get(nombreArchivo);
             try {
                 Files.createFile(archivo);
-                System.out.println("Se ha creado el archivo exitosamente.");
             } catch (IOException ex) {
                 ex.printStackTrace(System.out);
             }
+            System.out.println("Se ha creado el archivo exitosamente.");
         }
     }
 
@@ -132,10 +144,10 @@ public class AccesoDatosImpl implements AccesoDatos {
             Path archivo = Paths.get(nombreArchivo);
             try {
                 Files.delete(archivo);
-                System.out.println("Se ha eliminado el archivo exitosamente.");
             } catch (IOException ex) {
                 ex.printStackTrace(System.out);
             }
+            System.out.println("Se ha eliminado el archivo exitosamente.");
         } else 
             System.out.println("El archivo no existe.");
     }
