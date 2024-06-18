@@ -6,7 +6,7 @@ package mx.com.gm.peliculas.negocio;
 public interface CatalogoPeliculas {
     
     /**
-     * Recibe como argumento dos cadenas, la priemra contendra el nombre de la
+     * Recibe como argumento dos cadenas, la primera contendra el nombre de la
      * pelicula a agregar y la segunda sera el archivo correspondiente en donde
      * se agregara.
      */

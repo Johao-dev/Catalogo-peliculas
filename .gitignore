@@ -1,8 +1,6 @@
 #directorios y archivos a ocultar
 
-manifest.mf
 build/
 nbproject/
 build.xml
-
-
+manifest.mf

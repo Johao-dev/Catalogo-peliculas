@@ -19,12 +19,16 @@ public class AccesoDatosImpl implements AccesoDatos {
     @Override
     public boolean existe(String nombreArchivo) {
        boolean existe = false;
-       
-       Path archivo = Paths.get(nombreArchivo);
-       
-       if (Files.exists(archivo))
-           existe = true;
-       
+       try {
+           Path archivo = Paths.get(nombreArchivo);
+           
+           if (Files.exists(archivo))
+               existe = true;
+           
+       } catch (NullPointerException ex) {
+           System.out.println("No se ha iniciado ningun archivo.");
+           System.out.println("");
+       }
        return existe;
     }
 
@@ -36,9 +40,10 @@ public class AccesoDatosImpl implements AccesoDatos {
         if (existe) {
             Path archivo = Paths.get(nombreArchivo);
             try {
-                if (Files.size(archivo) == 0)
+                if (Files.size(archivo) == 0) {
                     System.out.println("El archivo esta vacio.");
-                else {
+                    System.out.println("");
+                } else {
                     BufferedReader br = Files.newBufferedReader(archivo);
                     String linea = br.readLine();
                     while (linea != null) {
@@ -49,8 +54,6 @@ public class AccesoDatosImpl implements AccesoDatos {
             } catch (IOException ex) {
                 ex.printStackTrace(System.out);
             }
-        } else {
-            System.out.println("El archivo no existe.");
         }
         return peliculas;
     }
@@ -67,6 +70,7 @@ public class AccesoDatosImpl implements AccesoDatos {
                         Charset.defaultCharset(), StandardOpenOption.WRITE)){
                     br.write(pelicula.getNombre());
                     System.out.println("Pelicula agregada exitosamente.");
+                    System.out.println("");
                     br.newLine();
                     
                 } catch (IOException ex) {
@@ -77,14 +81,13 @@ public class AccesoDatosImpl implements AccesoDatos {
                         Charset.defaultCharset(), StandardOpenOption.APPEND)){
                     br.write(pelicula.getNombre());
                     System.out.println("Pelicula anexada exitosamente.");
+                    System.out.println("");
                     br.newLine();
                     
                 } catch (IOException ex) {
                     ex.printStackTrace(System.out);
                 }
             }
-        } else {
-            System.out.println("El archivo no existe.");
         }
     }
 
@@ -102,10 +105,12 @@ public class AccesoDatosImpl implements AccesoDatos {
                 String pelicula = br.readLine();
                 
                 while (pelicula != null) {
-                    if (!pelicula.equals(nombrePelicula))
-                        peliculaBuscada = "No se encontro la pelicula " + nombrePelicula;
-                    else if (pelicula.equals(nombrePelicula))
+                    if (pelicula.equals(nombrePelicula)) {
                         peliculaBuscada = "Se encontro la pelicula " + nombrePelicula;
+                        break;
+                    } else {
+                        peliculaBuscada = "No se encontro la pelicula " + nombrePelicula;
+                    }
                     
                     pelicula = br.readLine();
                 }
@@ -113,8 +118,6 @@ public class AccesoDatosImpl implements AccesoDatos {
             } catch (IOException ex) {
                 ex.printStackTrace(System.out);
             }
-        } else {
-            System.out.println("El archivo no existe.");
         }
         return peliculaBuscada;
     }
@@ -123,9 +126,10 @@ public class AccesoDatosImpl implements AccesoDatos {
     public void crear(String nombreArchivo) {
         boolean existe = existe(nombreArchivo);
         
-        if (existe) 
+        if (existe) {
             System.out.println("El archivo ya existe.");
-        else {
+            System.out.println("");
+        } else {
             Path archivo = Paths.get(nombreArchivo);
             try {
                 Files.createFile(archivo);
@@ -133,6 +137,7 @@ public class AccesoDatosImpl implements AccesoDatos {
                 ex.printStackTrace(System.out);
             }
             System.out.println("Se ha creado el archivo exitosamente.");
+            System.out.println("");
         }
     }
 
@@ -148,7 +153,7 @@ public class AccesoDatosImpl implements AccesoDatos {
                 ex.printStackTrace(System.out);
             }
             System.out.println("Se ha eliminado el archivo exitosamente.");
-        } else 
-            System.out.println("El archivo no existe.");
+            System.out.println("");
+        }
     }
 }

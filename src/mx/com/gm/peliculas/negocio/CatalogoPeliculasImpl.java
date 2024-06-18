@@ -40,12 +40,16 @@ public class CatalogoPeliculasImpl implements CatalogoPeliculas {
 
     
     private void mostrarPeliculas(List<Pelicula> peliculas) {
-        ListIterator itrPeliculas = peliculas.listIterator();
-        System.out.println("Peliculas:");
-        while (itrPeliculas.hasNext()) {
-            System.out.println(itrPeliculas.next());
+        if (peliculas.isEmpty()) {
+            System.out.print("");
+        } else {
+            ListIterator itrPeliculas = peliculas.listIterator();
+            System.out.println("Peliculas:");
+            while (itrPeliculas.hasNext()) {
+                System.out.println(itrPeliculas.next());
+            }
+            System.out.println("");
         }
-        System.out.println("");
     }
     
     private boolean preguntarAnexacion() throws InputMismatchException {
